@@ -41,12 +41,12 @@ pipeline {
           }
         success {
           mail to: 'attritwinkle1@gmail.com',
-                subject: "SUCCESS $(currentBuild.fullDisplayName)",
+                subject: "SUCCESS ${currentBuild.fullDisplayName}",
                 body: "Email NOTIFICATION congratulations! The Jenkins pipeline has successfully created without any errors"
                 }
         failure {
            mail to: 'attritwinkle1@gmail.com',
-                subject: "FAILURE $(currentBuild.fullDisplayName)",
+                subject: "FAILURE ${currentBuild.fullDisplayName}",
                 body: "Test complted build failed"
                 }
            }
