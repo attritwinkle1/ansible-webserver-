@@ -26,6 +26,14 @@ pipeline {
                 git credentialsId: 'git-repo-creds', url: 'git@github.com:attritwinkle1/ansible-webserver-.git'
             }
         }
+       stage('Run ansible-lint against playbooks' {
+          steps {
+              sh 'docker run --rm -v $WORKSPACE/playbooks:/data cytopia/ansible-lint:4 apache-install.yml'
+              sh 'docker run --rm -v $WORKSPACE/playbooks:/data cytopia/ansible-lint:4 website-update.yml'
+              sh 'docker run --rm -v $WORKSPACE/playbooks:/data cytopia/ansible-lint:4 website-test.yml'
+           }
+       }
     }
+
 }
 
