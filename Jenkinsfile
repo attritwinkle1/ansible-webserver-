@@ -1,27 +1,31 @@
 pipeline {
-  agent { label "agentfarm" }
+    agent {label "agentfarm"}
     stages {
-    stage('Delete the workspace') {
-      steps {
-        cleanWs()
+        stage('Delete the workspace') {
+            steps {
+                cleanWs()
             }
-          }
-    stage('Installing ansible') {
-     script {     
-       def ansible_exists = fileExists /usr/bin/ansible
-       if (ansible_exists == true) {
-           echo "Skikking ansible install already exists"
-        } else {
-        sh 'sudo apt-get update -y && sudo apt-get upgrade -y'
-        sh 'sudo apt install -y wget tree unzip ansible python3-pip python3-apt'
-               }
-            }
-         }
-       }
-    stage('Third stage') {
-      steps {
-        echo "Third stage"
         }
-      }
-  }
+        stage('Installing Ansible') {
+            steps {
+                script {
+
+                    def ansible_exists = fileExists '/usr/bin/ansible'
+                    if (ansible_exists == true) {
+                        echo "Skipping Ansible install - already exists"
+                    } else {
+
+                        sh 'sudo apt-get update -y && sudo apt-get upgrade -y'
+                        sh 'sudo apt install -y wget tree unzip ansible python3-pip python3-apt'
+                    }
+                }
+            }
+        }
+        stage('Third Stage') {
+            steps {
+                echo "Third stage"
+            }
+        }
+    }
+}
 
