@@ -34,7 +34,7 @@ pipeline {
            }
        }
     }
- }
+ 
       post {
         always {
           echo "Notifying build result by email"
@@ -49,5 +49,5 @@ pipeline {
                 subject: "FAILURE ${currentBuild.fullDisplayName}",
                 body: "Test complted build failed"
                 }
+              }
            }
-     }
