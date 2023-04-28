@@ -35,4 +35,19 @@ pipeline {
        }
     }
  }
-
+      post {
+        always {
+          echo "Notifying build result by email"
+          }
+        success {
+          mail to: 'attritwinkle1@gmail.com',
+                subject: "SUCCESS $(currentBuild.fullDisplayName)",
+                body: "Email NOTIFICATION congratulations! The Jenkins pipeline has successfully created without any errors"
+                }
+        failure {
+           mail to: 'attritwinkle1@gmail.com',
+                subject: "FAILURE $(currentBuild.fullDisplayName)",
+                body: "Test complted build failed"
+                }
+           }
+     }
